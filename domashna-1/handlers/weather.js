@@ -1,4 +1,4 @@
-const { getCityWeather, getCityWeatherDaily} = require("../pkg/openweathermap");
+const { getCityWeather, getCityWeatherForFiveDays,} = require("../pkg/openweathermap");
 
 const getForCity = async (req, res) => {
     try{ 
@@ -9,9 +9,9 @@ const getForCity = async (req, res) => {
   }
 };
 
-const getForCityDaily = async (req, res) => {
+const getForCityFiveDays = async (req, res) => {
     try{
-        const data = await getCityWeatherDaily(req.params.city);
+        const data = await getCityWeatherForFiveDays(req.params.city);
         return res.status(200).send(data);
     }catch (err) {
         return res.status(500).send("Internal Server Error");
@@ -19,5 +19,5 @@ const getForCityDaily = async (req, res) => {
 };
 module.exports = {
     getForCity,
-    getForCityDaily,
+    getForCityFiveDays,
   };

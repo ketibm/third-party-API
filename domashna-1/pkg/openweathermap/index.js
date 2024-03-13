@@ -11,7 +11,7 @@ const getCityWeather = async (city) => {
     if (CACHE[city] && now < CACHE[city].timestamp + getSection("weather").cache_expiery) {
         return CACHE[city];
     }
-    const URl = `${getSection("weather").API_URL}/weather?q=${city}&units=metric&appid=${getSection("weather").api_key}`;
+    const URL = `${getSection("weather").API_URL}/weather?q=${city}&units=metric&appid=${getSection("weather").api_key}`;
     try {
         const res = await fetch(URL);
         const data = await res.json();
@@ -25,19 +25,18 @@ const getCityWeather = async (city) => {
   }
 };
 
-const getCityWeatherDaily = async (city) => {
+const getCityWeatherForFiveDays = async (city) => {
     console.log("CACHE1", CACHE1);
     let now = new Date().getTime() / 1000;
     if (
       CACHE1[city] &&
-      now < CACHE1[city].timestamp + getSection("weather").cache_expiery_daily
-      // current time < time of caching + time of cash expiery
+      now < CACHE1[city].timestamp + getSection("weather").cache_expiery_fivedays
     ) {
       return CACHE1[city];
     }
     const URL = `${
-        getSection("weather").API_URL_DAILY
-    }/direct?q=${city}&limit=10&appid=${getSection("weather").api_key}`;
+        getSection("weather").API_URL_5DAYS
+    }/forecast?q=${city}&appid=${getSection("weather").api_key}`;
     try {
       const res = await fetch(URL);
       const data = await res.json();
@@ -54,5 +53,5 @@ const getCityWeatherDaily = async (city) => {
   
   module.exports = {
     getCityWeather,
-    getCityWeatherDaily,
+    getCityWeatherForFiveDays,
   };
