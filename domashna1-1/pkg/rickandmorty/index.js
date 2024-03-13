@@ -4,7 +4,7 @@ const CACHE = {};
 const CACHE1 = {};
 const CACHE2 = {};
 
-const getCharacterName = async (status) => {
+const getCharacterStatus = async (status) => {
     console.log("CACHE", CACHE);
 
     let now = new Date().getTime() / 1000;
@@ -81,7 +81,7 @@ const getCharacterEpisode = async (id) => {
 };
 
 module.exports = {
-    getCharacterName,
+    getCharacterStatus,
     getCharacterLocation,
     getCharacterEpisode
 }

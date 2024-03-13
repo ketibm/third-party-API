@@ -1,8 +1,8 @@
-const { getCharacterName, getCharacterLocation, getCharacterEpisode } = require("../pkg/rickandmorty");
+const { getCharacterStatus, getCharacterLocation, getCharacterEpisode } = require("../pkg/rickandmorty");
 
 const getCharacter = async (req, res) => {
     try{
-        const data = await getCharacterName(req.params.status);
+        const data = await getCharacterStatus(req.params.status);
         return res.status(200).send(data);
     }catch (err) {
       console.error("Error fetching character data:", err);
