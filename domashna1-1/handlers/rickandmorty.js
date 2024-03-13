@@ -2,7 +2,6 @@ const { getCharacterName, getCharacterLocation, getCharacterEpisode } = require(
 
 const getCharacter = async (req, res) => {
     try{
-      // const newId = Number(req.params.id);
         const data = await getCharacterName(req.params.status);
         return res.status(200).send(data);
     }catch (err) {
