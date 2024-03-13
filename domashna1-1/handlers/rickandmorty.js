@@ -5,7 +5,6 @@ const getCharacter = async (req, res) => {
         const data = await getCharacterStatus(req.params.status);
         return res.status(200).send(data);
     }catch (err) {
-      console.error("Error fetching character data:", err);
     return res.status(500).send("Internal Server Error");
   }
 };
