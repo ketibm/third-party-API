@@ -2,25 +2,25 @@ const { getSection } = require("../config");
 
 const CACHE = {};
 const CACHE1 = {};
+const CACHE2 = {};
 
-const getCharacterName = async (character) => {
+const getCharacterName = async (status) => {
     console.log("CACHE", CACHE);
 
     let now = new Date().getTime() / 1000;
 
-    if( CACHE[character] && now < CACHE[character].timestamp + getSection("cartoon").cache_expiery) {
-        return CACHE[character];
+    if(CACHE[status] && now < CACHE[status].timestamp + getSection("cartoon").cache_expiery) {
+        return CACHE[status];
     }
     const URL = `${
         getSection("cartoon").API_URL
-      }/character`;
+      }?&status=${status}`;
    
       try{
         const res = await fetch(URL);
-        // const res = await fetch("https://rickandmortyapi.com/api/character");
         const data = await res.json();
 
-    CACHE[character] = {
+    CACHE[status] = {
       timestamp: new Date().getTime() / 1000,
       data: data,
     };
@@ -39,11 +39,11 @@ const getCharacterLocation = async (location) => {
     }
     // const URL = `${
     //     getSection("cartoon").API_URL
-    //   }/location/[3,22]`;
+    //   }/location[2,3,122]`;
 
       try{
         // const res = await fetch(URL);
-        const res = await fetch("https://rickandmortyapi.com/api/location");
+        const res = await fetch("https://rickandmortyapi.com/api/location/[2,122]");
         const data = await res.json();
 
     CACHE1[location] = {
@@ -55,7 +55,33 @@ const getCharacterLocation = async (location) => {
   }
 };
 
+const getCharacterEpisode = async (id) => {
+  console.log("CACHE2", CACHE2);
+
+  let now = new Date().getTime() / 1000;
+
+  if(CACHE2[id] && now < CACHE2[id].timestamp + getSection("cartoon").cache_expiery) {
+      return CACHE2[id];
+  }
+  const URL = `${
+      getSection("cartoon").API_URL_2
+    }/${id}`;
+ 
+    try{
+      const res = await fetch(URL);
+      const data = await res.json();
+
+  CACHE2[id] = {
+    timestamp: new Date().getTime() / 1000,
+    data: data,
+  };
+    }catch (err) {
+  throw err;
+}
+};
+
 module.exports = {
     getCharacterName,
     getCharacterLocation,
+    getCharacterEpisode
 }
